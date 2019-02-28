@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Products Show {% endblock %}
+{% block body %}
+	{% if product %}
+		<div class="table-responsive" >
+			<table class="table table-bordered" id="product">
+				<thead>
+					<tr><th class="text-center" colspan="2">Product Item Details</th></tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Name</th>
+						<td class="text-center">{{product.name}}</td>
+					</tr>
+					<tr>
+						<th>Price</th>
+						<td class="text-center">{{product.price}}</td>
+					</tr>
+					<tr>
+						<th>Stock Availability</th>
+						<td class="text-center">{{product.stockAvailable}}</td>
+					</tr>
+					<tr>
+						<th>Status</th>
+						<td class="text-center">{{product.status}}</td>
+					</tr>
+					<tr>
+						<th>Category</th>
+						{% if (product.category == '')%}
+						<td class="text-center">N/A</td>
+						{% else %}
+						<td class="text-center">{{product.category}}</td>
+						{% endif %}
+					</tr>
+					<tr>
+						<td colspan="2" class="text-center">
+							<a href="/" class="btn btn-secondary" role="button">Back</a>
+							<a href="/product/edit/{{product.id}}" class="btn btn-light" role="button">Edit</a>
+							<a href="#" class="btn btn-danger productDelete" data-id={{product.id}} role="button">Delete</a>
+						 </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	{% else %}
+		<p> There is no any products to display.</p>
+	{% endif %}
+{% endblock %}

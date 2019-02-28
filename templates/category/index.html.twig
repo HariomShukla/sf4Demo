@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Category List {% endblock %}
+{% block body %}
+	{% if categorys %}
+		<div class="table-responsive">
+			<table class="table" id="category">
+				<thead>
+					<tr>
+						<th scope="col" colspan="7" class="text-center font-weight-bold">Category List</th>
+					</tr>
+					<tr>
+					  <th scope="col">Sr. No.</th>
+					  <th scope="col">Category</th>
+					  <th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for category in categorys %}
+						<tr>
+						  <td scope="row">{{ loop.index }}</td>
+						  <td>{{ category.categoryName }}</td>
+						  <td>
+							<a href="/category/show/{{category.id}}" class="btn btn-secondary" role="button">Show</a>
+							<a href="/category/edit/{{category.id}}" class="btn btn-light" role="button">Edit</a>
+							<a href="#" class="btn btn-danger categoryDelete" data-id={{category.id}} role="button">Delete</a>
+						  </td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{% else %}
+		<p> There is no any category to display.</p>
+	{% endif %}
+{% endblock %}

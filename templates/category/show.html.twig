@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Category View {% endblock %}
+{% block body %}
+	{% if category %}
+		<div class="table-responsive" >
+			<table class="table table-bordered" id="category">
+				<thead>
+					<tr><th class="text-center" colspan="2">Category Item Details</th></tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Category Name</td>
+						<td class="text-center">{{category.categoryName}}</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="text-center">
+							<a href="/category" class="btn btn-secondary" role="button">Back</a>
+							<a href="/category/edit/{{category.id}}" class="btn btn-light" role="button">Edit</a>
+							<a href="#" class="btn btn-danger categoryDelete" data-id={{category.id}} role="button">Delete</a>
+						 </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	{% else %}
+		<p> There is no any categorys to display.</p>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Products List {% endblock %}
+{% block body %}
+	{% if products %}
+		<div class="table-responsive">
+			<table class="table" id="product">
+				<thead>
+					<tr>
+						<th scope="col" colspan="7" class="text-center font-weight-bold">Product List</th>
+					</tr>
+					<tr>
+					  <th scope="col">Sr. No.</th>
+					  <th scope="col">Name</th>
+					  <th scope="col">Price</th>
+					  <th scope="col">Stock Available</th>
+					  <th scope="col">Status</th>
+					  <th scope="col">Category</th>
+					  <th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for product in products%}
+						<tr>
+						  <th scope="row">{{ loop.index }}</th>
+						  <td>{{ product.name }}</td>
+						  <td>{{ product.price }}</td>
+						  <td>{{ product.stockAvailable }}</td>
+						  <td>{{ product.status }}</td>
+						  <td>
+						  <b>
+							{%  if( product.category and product.category.id != '') %}
+								{{ product.category.categoryName }}
+							
+							
+							{% else %}
+							N/A
+							{% endif %}
+						  </b>
+						  </td>
+						  <td>
+							<a href="/product/show/{{product.id}}" class="btn btn-secondary" role="button">Show</a>
+							<a href="/product/edit/{{product.id}}" class="btn btn-light" role="button">Edit</a>
+							<a href="#" class="btn btn-danger productDelete" data-id={{product.id}} role="button">Delete</a>
+						  </td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{% else %}
+		<p> There is no any products to display.</p>
+	{% endif %}
+{% endblock %}
