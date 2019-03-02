@@ -2,7 +2,7 @@
 
 {% block title %} Products List {% endblock %}
 {% block body %}
-	{% if products %}
+	
 		<div class="table-responsive">
 			<table class="table" id="product">
 				<thead>
@@ -20,6 +20,7 @@
 					</tr>
 				</thead>
 				<tbody>
+				{% if products %}
 					{% for product in products%}
 						<tr>
 						  <th scope="row">{{ loop.index }}</th>
@@ -27,17 +28,7 @@
 						  <td>{{ product.price }}</td>
 						  <td>{{ product.stockAvailable }}</td>
 						  <td>{{ product.status }}</td>
-						  <td>
-						  <b>
-							{%  if( product.category and product.category.id != '') %}
-								{{ product.category.categoryName }}
-							
-							
-							{% else %}
-							N/A
-							{% endif %}
-						  </b>
-						  </td>
+						  <td><b>{{ product.category.categoryName }}</b></td>
 						  <td>
 							<a href="/product/show/{{product.id}}" class="btn btn-secondary" role="button">Show</a>
 							<a href="/product/edit/{{product.id}}" class="btn btn-light" role="button">Edit</a>
@@ -45,10 +36,12 @@
 						  </td>
 						</tr>
 					{% endfor %}
+				{% else %}
+				<tr><td>
+					<p><b>There Is No Any Products To Display.</b></p>
+				</td></tr>
+				{% endif %}
 				</tbody>
 			</table>
 		</div>
-	{% else %}
-		<p> There is no any products to display.</p>
-	{% endif %}
 {% endblock %}

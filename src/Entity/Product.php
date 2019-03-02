@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -18,28 +19,39 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+	 * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
+	 * @Assert\NotBlank
      */
     private $price;
 
     /**
      * @ORM\Column(type="integer")
+	 * @Assert\NotBlank
      */
     private $stockAvailable;
 
     /**
      * @ORM\Column(name="status", type="string", columnDefinition="enum('In Stock', 'Out Of Stock', 'Pre Order')")
+	 * @Assert\NotBlank
      */
     private $status;
 
     
+	#/**
+    # * One Product has One Category.
+    # * @ORM\OneToOne(targetEntity="Category", mappedBy="products")
+    # */
+    #private $category;
+	
 	/**
-     * One Product has One Category.
-     * @ORM\OneToOne(targetEntity="Category", mappedBy="products")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+	 * @Assert\NotBlank
+	 * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $category;
 

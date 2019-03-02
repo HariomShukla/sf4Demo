@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\Method;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -65,6 +66,11 @@ class ProductController extends AbstractController
 					'Pre Order' => 'Pre Order',
 					'Out Of Stock' => 'Out Of Stock',
 				], 'attr'=>array('class'=>'form-control')))
+			->add('category', EntityType::class, [
+				'class' => 'App\Entity\Category',
+				'multiple' => false,
+				'attr'=>array('class'=>'form-control')
+			])
 			->add('Save', SubmitType::class, array('label'=>'Add Product','attr'=>array('class'=>'btn btn-primary mt-3')))
 			->getForm();
 		
@@ -99,6 +105,11 @@ class ProductController extends AbstractController
 					'Pre Order' => 'Pre Order',
 					'Out Of Stock' => 'Out Of Stock',
 				], 'attr'=>array('class'=>'form-control')))
+			->add('category', EntityType::class, [
+				'class' => 'App\Entity\Category',
+				'multiple' => false,
+				'attr'=>array('class'=>'form-control')
+			])
 			->add('Save', SubmitType::class, array('label'=>'Update Product','attr'=>array('class'=>'btn btn-primary mt-3')))
 			->getForm();
 		

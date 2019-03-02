@@ -62,24 +62,27 @@ class CategoryController extends AbstractController
 		
 		$form = $this->createFormBuilder($category)
 			->add('categoryName', TextType::class, array('attr'=>array('class'=>'form-control')))
-			->add('products', EntityType::class, [
-				'class' => 'App\Entity\Product',
-				'multiple' => false,
-				'attr'=>array('class'=>'form-control')
-			])
+			// ->add('products', EntityType::class, [
+				// 'class' => 'App\Entity\Product',
+				// 'multiple' => false,
+				// 'attr'=>array('class'=>'form-control')
+			// ])
 			->add('Save', SubmitType::class, array('label'=>'Add category','attr'=>array('class'=>'btn btn-primary mt-3')))
 			->getForm();
 		$form->handleRequest($request);
 		if($form->isSubmitted() && $form->isValid())
 		{
 			$category = $form->getData();
-			//$category = $form->product->getData();
-			// echo "<pre>";
-			// print_r($category); die;
-			// $productEntity = $this->em->getReposiroty('AppBundle:Product')->find
 			$entityManager = $this->getDoctrine()->getManager();
 			$entityManager->persist($category);
-			$entityManager->flush();
+			try
+			{
+				$entityManager->flush();
+			}
+			catch (\PDOException $e)
+			{
+				$result = -1;
+			}
 			return $this->redirectToRoute('category_list');
 			
 		}
